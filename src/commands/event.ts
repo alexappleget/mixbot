@@ -1,11 +1,13 @@
 import { Message } from "discord.js";
-import { eventDrinks } from "../maps";
+import { eventDrinks, eventIngredients } from "../maps";
 
 export const eventCommand = async (message: Message) => {
   const channelId = message.channel.id;
 
   try {
     eventDrinks.set(channelId, []);
+    eventIngredients.set(channelId, []);
+
     await message.reply(
       "🍹 **New Event Started!**\n\n" +
         "Add signature drinks by typing:\n" +

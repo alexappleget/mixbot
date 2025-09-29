@@ -30,6 +30,25 @@ let signatureCocktails: ISignatureCocktail[] = [
 let commonCocktails: ICommonCocktail[] = [
   {
     id: randomUUID(),
+    name: "Aperol Spritz",
+    ingredients: ["aperol", "prosecco", "rambler", "oranges"],
+    instructions: [
+      { step: 1, action: "Add light ice into glass." },
+      { step: 2, action: "Pour aperol for 4 count into glass." },
+      {
+        step: 3,
+        action: "Pour prosecco into glass (leave room for soda water).",
+      },
+      { step: 4, action: "Top off glass with soda water." },
+      { step: 5, action: "Stir and serve with orange peel/slice garnish." },
+      {
+        step: 6,
+        action: "Shake mixer, strain into glass, and serve with lime garnish.",
+      },
+    ],
+  },
+  {
+    id: randomUUID(),
     name: "Cosmopolitan",
     ingredients: [
       "vodka",
@@ -60,6 +79,18 @@ let commonCocktails: ICommonCocktail[] = [
       { step: 3, action: "Add ice into glass." },
       { step: 4, action: "Top off drink with ginger beer." },
       { step: 5, action: "Stir and serve with lime garnish." },
+    ],
+  },
+  {
+    id: randomUUID(),
+    name: "Negroni",
+    ingredients: ["gin", "campari", "sweet vermouth", "oranges"],
+    instructions: [
+      { step: 1, action: "Add ice into glass." },
+      { step: 2, action: "Pour gin for 4 count into glass." },
+      { step: 3, action: "Pour campari for 4 count into glass." },
+      { step: 4, action: "Pour sweet vermouth for 4 count into glass." },
+      { step: 5, action: "Stir and serve with orange peel/slice garnish." },
     ],
   },
   {

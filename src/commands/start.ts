@@ -1,13 +1,17 @@
 import { Message } from "discord.js";
 import { capitalizeWords } from "../util";
 import { prisma } from "../config";
-import { eventDrinks, eventIngredients } from "../maps";
+import { eventBeers, eventDrinks, eventIngredients, eventWines } from "../maps";
+import { randomBytes } from "crypto";
+import QRCode from "qrcode";
 
 export const startCommand = async (message: Message) => {
   const channelId = message.channel.id;
 
   try {
     const drinks = eventDrinks.get(channelId) || [];
+    const wines = eventWines.get(channelId) || [];
+    const beers = eventBeers.get(channelId) || [];
     const ingredients = eventIngredients.get(channelId) || [];
 
     const availableIngredients = ingredients.map((ingredient) =>
@@ -86,6 +90,27 @@ export const startCommand = async (message: Message) => {
       response += `**🍸 No common cocktails can be made with available ingredients.**\n\n`;
     }
 
+    const eventId = randomBytes(16).toString("hex");
+
+    console.log(signatureDrinks);
+
+    await prisma.event.create({
+      data: {
+        id: eventId,
+        signatureDrinks,
+        wines,
+        beers,
+        commonCocktails: possibleCommonCocktails,
+      },
+    });
+
+    const WEBSITE_URL = `www.example.com/${eventId}`;
+
+    const qrDataURL = await QRCode.toDataURL(WEBSITE_URL);
+
+    const base64Data = qrDataURL.replace(/^data:image\/png;base64,/, "");
+    const buffer = Buffer.from(base64Data, "base64");
+
     if (response === "") {
       await message.reply(
         "❌ No drinks to display. Add signature drinks with `!drinks` and ingredients with `!ingredients` first."
@@ -93,7 +118,10 @@ export const startCommand = async (message: Message) => {
       return;
     }
 
-    await message.reply(response);
+    await message.reply({
+      content: response,
+      files: [{ attachment: buffer, name: "qrcode.png" }],
+    });
 
     if (drinks.length > 0) {
       const foundDrinkNames = signatureDrinks.map((drink) => drink.name);

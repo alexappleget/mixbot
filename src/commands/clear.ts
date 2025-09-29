@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { eventDrinks, eventIngredients } from "../maps";
+import { eventBeers, eventDrinks, eventIngredients, eventWines } from "../maps";
 
 export const clearCommand = async (message: Message) => {
   const channelId = message.channel.id;
@@ -7,6 +7,8 @@ export const clearCommand = async (message: Message) => {
   try {
     eventDrinks.set(channelId, []);
     eventIngredients.set(channelId, []);
+    eventWines.set(channelId, []);
+    eventBeers.set(channelId, []);
 
     await message.reply("✅ Signature drinks list cleared!");
   } catch (error) {

@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { capitalizeWords } from "../util";
-import { prisma } from "../config";
+import { FRONTEND_URL, prisma } from "../config";
 import { eventBeers, eventDrinks, eventIngredients, eventWines } from "../maps";
 import { randomBytes } from "crypto";
 import QRCode from "qrcode";
@@ -102,7 +102,7 @@ export const startCommand = async (message: Message) => {
       },
     });
 
-    const WEBSITE_URL = `http://localhost:3000/menu/${eventId}`;
+    const WEBSITE_URL = `${FRONTEND_URL}/menu/${eventId}`;
 
     const qrDataURL = await QRCode.toDataURL(WEBSITE_URL);
 

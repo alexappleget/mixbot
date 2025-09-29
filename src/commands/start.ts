@@ -92,8 +92,6 @@ export const startCommand = async (message: Message) => {
 
     const eventId = randomBytes(16).toString("hex");
 
-    console.log(signatureDrinks);
-
     await prisma.event.create({
       data: {
         id: eventId,
@@ -104,7 +102,7 @@ export const startCommand = async (message: Message) => {
       },
     });
 
-    const WEBSITE_URL = `www.example.com/${eventId}`;
+    const WEBSITE_URL = `http://localhost:3000/menu/${eventId}`;
 
     const qrDataURL = await QRCode.toDataURL(WEBSITE_URL);
 

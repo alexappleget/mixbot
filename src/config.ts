@@ -5,5 +5,6 @@ dotenv.config();
 export const PORT = process.env.PORT || 8212;
 export const isProduction = process.env.NODE_ENV === "production";
 export const discordToken = process.env.DISCORD_TOKEN;
+export const FRONTEND_URL = process.env.FRONTEND_URL;
 
 export const prisma = new PrismaClient();
